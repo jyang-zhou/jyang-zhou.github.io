@@ -3,7 +3,7 @@ title: Welcome
 description: Jinyang's Website
 baseurl: "" 
 #change the baseurl to "" if you are using it as your user GitHub Pages
-url: "https://yk-liu.github.io"  
+url: "https://jyang-zhou.github.io"  
 
 
 # GitHub User settings
@@ -11,7 +11,7 @@ username: Username
 github_username: github_username
 user_description: user_description
 user_title: user_title
-email: 
+email: jzhou16@uchicago.edu
 
 # Blog Author settings
 author:
