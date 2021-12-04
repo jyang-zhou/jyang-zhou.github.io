@@ -9,11 +9,7 @@ mathjax: true
 ---
 
 # Me
-
-
-
-# This Site
-
+My name is Jinyang Zhou. I am a graduate student at the University of Chicago. I am interested in high-dimensional inference, probabilistic problems, and sequential analysis. I am preparing to be a data scientist. I am fortunate to have Professor Yuehaw Khoo at UChicago as my master advisor during 2020-2022, and Professor Pinyuen Chen at Syracuse University supervising my undergraduate thesis in Biostatistics during 2019-2020.
 
 # Posts
 
@@ -48,20 +44,8 @@ This website uses these sources:
 
 Additional licensing information can be found YOUR WEBSITE LINK.
 
-# The Name
-
-I named this website "A Finger Pointing to the Moon", as in the Buddhism story:
-
-> **佛告阿难。汝等尚以缘心听法。此法亦缘。非得法性。**
->
-> **若复观指以为月体。此人岂唯亡失月轮。亦亡其指。何以故。以所标指为明月故。**
->
-> **岂唯亡指。亦复不识明之与暗。何以故。即以指体。为月明性。明暗二性。无所了故。**
-
-Which has been beautifully put by Bruce Lee:
-
->It's like a finger pointing away to the moon. Don't concentrate on the finger or you will all that heavenly glory.
+Many thank for Yingkai Liu to offer this website template.
 
 # Contact
 
-The best way to reach me is via email: $namer$ @ $web.com$
+The best way to reach me is via email: $jzhou16$ @ $uchicago.edu$
