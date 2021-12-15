@@ -12,6 +12,8 @@ description: This is a post for sample code [SVMs](https://github.com/jyang-zhou
 # SVMs
 SVMs via sub-gradient descent and quadratic programming with sentiment analysis on tweets on US airline service quality. We focus on using Linear SVM, Kernel SVM with linear kernel and Kernel SVM with Gaussian kernel on the dataset.
 
+Please go to [SVMs](https://github.com/jyang-zhou/SVMs) for the complete code.
+
 ## Package Needed
 ```
 import numpy as np
