@@ -1,5 +1,5 @@
 ---
-title: Sample Post - Markdown Syntax
+title: SVMs Sample Code
 commentable: flase
 Edit: 2021-12-15
 mathjax: true
