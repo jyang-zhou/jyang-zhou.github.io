@@ -6,11 +6,11 @@ mathjax: true
 mermaid: true
 tags: SVM Kernel
 categories: Data
-description: This is a post for sample code [SVMs](https://github.com/jyang-zhou/SVMs).
+description: Sample Code for SVMs via sub-gradient descent and quadratic programming.
 ---
 
 # SVMs
-SVMs via sub-gradient descent and quadratic programming with sentiment analysis on tweets on US airline service quality. We focus on using Linear SVM, Kernel SVM with linear kernel and Kernel SVM with Gaussian kernel on the dataset.
+SVMs via sub-gradient descent and quadratic programming are used to do sentiment analysis on tweets on US airline service quality. We focus on using Linear SVM, Kernel SVM with linear kernel and Kernel SVM with Gaussian kernel on the dataset. 
 
 Please go to [SVMs](https://github.com/jyang-zhou/SVMs) for the complete code.
 
