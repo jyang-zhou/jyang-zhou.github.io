@@ -13,9 +13,79 @@ description: This is a post for sample code [SVMs](https://github.com/jyang-zhou
 SVMs via sub-gradient descent and quadratic programming with sentiment analysis on tweets on US airline service quality. We focus on using Linear SVM, Kernel SVM with linear kernel and Kernel SVM with RBF kernel on the dataset.
 
 ```
-function test() {
-  console.log("notice the blank line before this function?");
-}
+import numpy as np
+import numpy.random as npr
+
+import matplotlib.cm as cm
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+from math import sqrt
+
+import csv
+import cvxopt
+
+def create_download_file(fname, preds):
+    """Create file with predictions written as a csv file
+    """
+    ofile  = open(fname, "w")  
+    writer = csv.writer(
+        ofile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL
+    )
+    writer.writerow(['id', 'category'])
+    for i in range(preds.shape[0]):
+        writer.writerow([i, preds[i]])
+
+
+def plot_decision_countour(svm, X, y, grid_size=100):
+    x_min, x_max = X[:, 0].min(), X[:, 0].max()
+    y_min, y_max = X[:, 1].min(), X[:, 1].max()
+    xx, yy = np.meshgrid(np.linspace(x_min, x_max, grid_size),
+                         np.linspace(y_min, y_max, grid_size),
+                         indexing='ij')
+    data = np.stack([xx, yy], axis=2).reshape(-1, 2)
+    pred = svm.predict(data).reshape(xx.shape)
+    plt.contourf(xx, yy, pred,
+                 cmap=cm.Paired,
+                 levels=[-0.001, 0.001],
+                 extend='both',
+                 alpha=0.8)
+    flatten = lambda m: np.array(m).reshape(-1,)
+    plt.scatter(flatten(X[:,0][y==-1]),flatten(X[:,1][y==-1]),
+                  c=flatten(y)[y==-1],cmap=cm.Paired,marker='o')
+    plt.scatter(flatten(X[:,0][y==1]),flatten(X[:,1][y==1]),
+                  c=flatten(y)[y==1],cmap=cm.Paired,marker='+')
+    
+    plt.xlim(x_min, x_max)
+    plt.ylim(y_min, y_max)
+    plt.plot()
+
+
+
+
+def test_SVM(svm, num_samples=500,linear=False):
+    """test svm
+    """
+    np.random.seed(783923)
+
+    X = npr.random((num_samples, 2)) * 2 - 1
+    if linear:
+      y = 2 * (X.sum(axis=1) > 0) - 1.0
+    else: 
+      y = 2 * ((X ** 2).sum(axis=1) - 0.5 > 0) - 1.0
+    svm.fit(X,y)
+    
+    plot_decision_countour(svm, X, y)
+
+    from datetime import datetime
+    np.random.seed(int(round(datetime.now().timestamp())))
+
+def compute_acc(model, X, y):
+    pred = model.predict(X)
+    size = len(y)
+    num_correct = (pred == y).sum()
+    acc = num_correct / size
+    print("{} out of {} correct, acc {:.3f}".format(num_correct, size, acc))
 ```
 
 # Data Set
