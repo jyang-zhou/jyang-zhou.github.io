@@ -461,7 +461,7 @@ for name, dataframe in zip(['train', 'val'], [train, val]):
     y[name] = int_lbls
 ```
 - Use Linear SVM, Kernel SVM with linear kernel and Kernel SVM with Gaussian kernel on the airline dataset.
-  * Linear SVM
+- Linear SVM
 ```
 svm = LinearSVM(C=1000)
 svm.fit(X['train'], y['train'],lr_sched=lambda t: 1/(.1*t), num_epochs=10)
