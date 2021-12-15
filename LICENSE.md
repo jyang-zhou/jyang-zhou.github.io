@@ -1,6 +1,6 @@
 All parts of the code and contents, unless otherwise stated or in violation with the original license, are under BSD 4-Clause License.
 
-Copyright (c) 2018, Yingkai Liu
+Copyright (c) 2021, Jinyang Zhou
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
