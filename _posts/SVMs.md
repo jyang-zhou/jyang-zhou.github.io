@@ -383,10 +383,106 @@ class KernelSVM(object):
 
 # Procedure
 - Set up the dataset.
+```
+import os.path as osp
+import pandas as pd
+import re, nltk
+from nltk.stem import WordNetLemmatizer
+from nltk.corpus import stopwords
 
+nltk.download('stopwords')
+nltk.download('punkt')
+nltk.download('wordnet')
+
+from sklearn.feature_extraction.text import CountVectorizer
+
+data_root = 'data/tweets'
+!curl -O https://ttic.uchicago.edu/~nsm/ttic_31020_2020/hw_3/dataset/train.csv
+!curl -O https://ttic.uchicago.edu/~nsm/ttic_31020_2020/hw_3/dataset/val.csv
+!curl -O https://ttic.uchicago.edu/~nsm/ttic_31020_2020/hw_3/dataset/test_release.csv
+
+data_root = ''
+train, val, test = \
+    pd.read_csv(osp.join(data_root, 'train.csv')), \
+    pd.read_csv(osp.join(data_root, 'val.csv')), \
+    pd.read_csv(osp.join(data_root, 'test_release.csv'))
+
+print(train.head(3))
+
+print(train.airline_sentiment.value_counts())
+```
 - Build the vocabulary and vector representations for each word.
+```
+stop_words = set(stopwords.words('english'))
+wordnet_lemmatizer = WordNetLemmatizer()
+def tokenize_normalize(tweet):
+    only_letters = re.sub("[^a-zA-Z]", " ", tweet)
+    tokens = nltk.word_tokenize(only_letters)[2:]
+    lower_case = [l.lower() for l in tokens]
+    filtered_result = list(filter(lambda l: l not in stop_words, lower_case))
+    lemmas = [wordnet_lemmatizer.lemmatize(t) for t in filtered_result]
+    return lemmas
+
+# the sklearn vectorizer scans our corpus, build the vocabulary, and changes text into vectors
+vectorizer = CountVectorizer(
+    strip_accents='unicode', 
+    lowercase=True, 
+    tokenizer=tokenize_normalize,
+    ngram_range=(1,1),  # you may want to try 2 grams. The vocab will get very large though,
+    min_df=100,  # this parameter deletes words that occur in less than min_df
+                # documents. decreasing this will increase the vocabulary size,
+                # but may also increase the runtime.
+)
+# first learn the vocabulary
+vectorizer.fit(pd.concat([train, val]).text)
+
+
+print( list(vectorizer.vocabulary_.items())[:10] )
+print("\n vocabulary size {}".format(len(vectorizer.vocabulary_)))
+```
 - Set up the training set and prepare the training data so that we can call SVM as a black-box.
+```
+X = {}
+y = {}
+X['train'] = vectorizer.transform(train.text).toarray()
+X['val'] = vectorizer.transform(val.text).toarray()
+X['test'] = vectorizer.transform(test.text).toarray()
+
+# note that our data is 10250 dimensional. 
+# This is a little daunting for laptops and coming up with a manageable vector
+# representation is a major topic in Natural Language Processing.
+print(X['train'].shape)
+
+# convert the word labels of 'positive', 'neutral', 'negative' into integer labels
+# note that positive and neural belong to one category, labelled as 1, while negative stands alone as the other
+for name, dataframe in zip(['train', 'val'], [train, val]):
+    sentiments_in_words = dataframe['airline_sentiment'].tolist()
+    int_lbls = np.array( list(map(lambda x: -1 if x == 'negative' else 1, sentiments_in_words)), dtype=np.int32 )
+    y[name] = int_lbls
+```
 - Use Linear SVM, Kernel SVM with linear kernel and Kernel SVM with Gaussian kernel on the airline dataset.
+  - Linear SVM
+```
+svm = LinearSVM(C=1000)
+svm.fit(X['train'], y['train'],lr_sched=lambda t: 1/(.1*t), num_epochs=10)
+compute_acc(svm, X['train'], y['train'])
+compute_acc(svm, X['val'], y['val'])
+```
+  - Kernel SVM with linear kernel
+```
+svm = KernelSVM(Kernel.linear(), C=100)
+svm.fit(X['train'].astype(float), y['train'].astype(float))
+compute_acc(svm, X['train'], y['train'])
+compute_acc(svm, X['val'], y['val'])
+```
+  - Kernel SVM with Gaussian kernel
+```
+svm = KernelSVM(Kernel.gaussian(sigma=1), C=10)
+svm.fit(X['train'].astype(float), y['train'].astype(float))
+compute_acc(svm, X['train'], y['train'])
+compute_acc(svm, X['val'], y['val'])
+```
+
 - Generate test output.
 
 # Prediction Accuracy:
