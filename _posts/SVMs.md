@@ -461,21 +461,21 @@ for name, dataframe in zip(['train', 'val'], [train, val]):
     y[name] = int_lbls
 ```
 - Use Linear SVM, Kernel SVM with linear kernel and Kernel SVM with Gaussian kernel on the airline dataset.
-  - Linear SVM
+  * Linear SVM
 ```
 svm = LinearSVM(C=1000)
 svm.fit(X['train'], y['train'],lr_sched=lambda t: 1/(.1*t), num_epochs=10)
 compute_acc(svm, X['train'], y['train'])
 compute_acc(svm, X['val'], y['val'])
 ```
-  - Kernel SVM with linear kernel
+  * Kernel SVM with linear kernel
 ```
 svm = KernelSVM(Kernel.linear(), C=100)
 svm.fit(X['train'].astype(float), y['train'].astype(float))
 compute_acc(svm, X['train'], y['train'])
 compute_acc(svm, X['val'], y['val'])
 ```
-  - Kernel SVM with Gaussian kernel
+  * Kernel SVM with Gaussian kernel
 ```
 svm = KernelSVM(Kernel.gaussian(sigma=1), C=10)
 svm.fit(X['train'].astype(float), y['train'].astype(float))
