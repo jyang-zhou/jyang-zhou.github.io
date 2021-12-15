@@ -11,104 +11,13 @@ description: This is a post for sample code [SVMs](https://github.com/jyang-zhou
 
 # SVMs
 SVMs via sub-gradient descent and quadratic programming with sentiment analysis on tweets on US airline service quality. We focus on using Linear SVM, Kernel SVM with linear kernel and Kernel SVM with RBF kernel on the dataset.
-'''
-{
- "cells": [
-  {
-   "cell_type": "markdown",
-   "metadata": {
-    "id": "wCq8kJ42ghDl"
-   },
-   "source": [
-    "### Sample Code for SVMs via sub-gradient descent and quadratic programming"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {
-    "cellView": "form",
-    "id": "vNN6eZW5ghDm"
-   },
-   "outputs": [],
-   "source": [
-    "import numpy as np\n",
-    "import numpy.random as npr\n",
-    "\n",
-    "import matplotlib.cm as cm\n",
-    "import matplotlib.pyplot as plt\n",
-    "%matplotlib inline\n",
-    "\n",
-    "from math import sqrt\n",
-    "\n",
-    "import csv\n",
-    "import cvxopt\n",
-    "\n",
-    "def create_download_file(fname, preds):\n",
-    "    \"\"\"Create file with predictions written as a csv file\n",
-    "    \"\"\"\n",
-    "    ofile  = open(fname, \"w\")  \n",
-    "    writer = csv.writer(\n",
-    "        ofile, delimiter=',', quotechar='\"', quoting=csv.QUOTE_ALL\n",
-    "    )\n",
-    "    writer.writerow(['id', 'category'])\n",
-    "    for i in range(preds.shape[0]):\n",
-    "        writer.writerow([i, preds[i]])\n",
-    "\n",
-    "\n",
-    "def plot_decision_countour(svm, X, y, grid_size=100):\n",
-    "    x_min, x_max = X[:, 0].min(), X[:, 0].max()\n",
-    "    y_min, y_max = X[:, 1].min(), X[:, 1].max()\n",
-    "    xx, yy = np.meshgrid(np.linspace(x_min, x_max, grid_size),\n",
-    "                         np.linspace(y_min, y_max, grid_size),\n",
-    "                         indexing='ij')\n",
-    "    data = np.stack([xx, yy], axis=2).reshape(-1, 2)\n",
-    "    pred = svm.predict(data).reshape(xx.shape)\n",
-    "    plt.contourf(xx, yy, pred,\n",
-    "                 cmap=cm.Paired,\n",
-    "                 levels=[-0.001, 0.001],\n",
-    "                 extend='both',\n",
-    "                 alpha=0.8)\n",
-    "    flatten = lambda m: np.array(m).reshape(-1,)\n",
-    "    plt.scatter(flatten(X[:,0][y==-1]),flatten(X[:,1][y==-1]),\n",
-    "                  c=flatten(y)[y==-1],cmap=cm.Paired,marker='o')\n",
-    "    plt.scatter(flatten(X[:,0][y==1]),flatten(X[:,1][y==1]),\n",
-    "                  c=flatten(y)[y==1],cmap=cm.Paired,marker='+')\n",
-    "    \n",
-    "    plt.xlim(x_min, x_max)\n",
-    "    plt.ylim(y_min, y_max)\n",
-    "    plt.plot()\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "def test_SVM(svm, num_samples=500,linear=False):\n",
-    "    \"\"\"test svm\n",
-    "    \"\"\"\n",
-    "    np.random.seed(783923)\n",
-    "\n",
-    "    X = npr.random((num_samples, 2)) * 2 - 1\n",
-    "    if linear:\n",
-    "      y = 2 * (X.sum(axis=1) > 0) - 1.0\n",
-    "    else: \n",
-    "      y = 2 * ((X ** 2).sum(axis=1) - 0.5 > 0) - 1.0\n",
-    "    svm.fit(X,y)\n",
-    "    \n",
-    "    plot_decision_countour(svm, X, y)\n",
-    "\n",
-    "    from datetime import datetime\n",
-    "    np.random.seed(int(round(datetime.now().timestamp())))\n",
-    "\n",
-    "def compute_acc(model, X, y):\n",
-    "    pred = model.predict(X)\n",
-    "    size = len(y)\n",
-    "    num_correct = (pred == y).sum()\n",
-    "    acc = num_correct / size\n",
-    "    print(\"{} out of {} correct, acc {:.3f}\".format(num_correct, size, acc))"
-   ]
-  }
+
+```
+function test() {
+  console.log("notice the blank line before this function?");
 }
-'''
+```
+
 # Data Set
 
 - The [data](https://github.com/jyang-zhou/SVMs/tree/main/Data%20Set) comes in the form of a csv table. The columns most relevant to our task are 'text' and 'airline_sentiment'.
