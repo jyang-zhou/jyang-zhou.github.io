@@ -383,6 +383,7 @@ class KernelSVM(object):
 
 # Procedure
 - Set up the dataset.
+
 ```
 import os.path as osp
 import pandas as pd
@@ -412,6 +413,7 @@ print(train.head(3))
 print(train.airline_sentiment.value_counts())
 ```
 - Build the vocabulary and vector representations for each word.
+
 ```
 stop_words = set(stopwords.words('english'))
 wordnet_lemmatizer = WordNetLemmatizer()
@@ -441,6 +443,7 @@ print( list(vectorizer.vocabulary_.items())[:10] )
 print("\n vocabulary size {}".format(len(vectorizer.vocabulary_)))
 ```
 - Set up the training set and prepare the training data so that we can call SVM as a black-box.
+
 ```
 X = {}
 y = {}
@@ -460,8 +463,10 @@ for name, dataframe in zip(['train', 'val'], [train, val]):
     int_lbls = np.array( list(map(lambda x: -1 if x == 'negative' else 1, sentiments_in_words)), dtype=np.int32 )
     y[name] = int_lbls
 ```
-- Use Linear SVM, Kernel SVM with linear kernel and Kernel SVM with Gaussian kernel on the airline dataset.
+- Use Linear SVM, Kernel SVM with linear kernel and Kernel SVM with Gaussian kernel on the airline dataset。
+
 - Linear SVM
+
 ```
 svm = LinearSVM(C=1000)
 svm.fit(X['train'], y['train'],lr_sched=lambda t: 1/(.1*t), num_epochs=10)
@@ -469,6 +474,7 @@ compute_acc(svm, X['train'], y['train'])
 compute_acc(svm, X['val'], y['val'])
 ```
   * Kernel SVM with linear kernel
+
 ```
 svm = KernelSVM(Kernel.linear(), C=100)
 svm.fit(X['train'].astype(float), y['train'].astype(float))
@@ -476,6 +482,7 @@ compute_acc(svm, X['train'], y['train'])
 compute_acc(svm, X['val'], y['val'])
 ```
   * Kernel SVM with Gaussian kernel
+
 ```
 svm = KernelSVM(Kernel.gaussian(sigma=1), C=10)
 svm.fit(X['train'].astype(float), y['train'].astype(float))
