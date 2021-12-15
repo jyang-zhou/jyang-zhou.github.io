@@ -11,7 +11,7 @@ description: This is a post for sample code [SVMs](https://github.com/jyang-zhou
 
 # SVMs
 SVMs via sub-gradient descent and quadratic programming with sentiment analysis on tweets on US airline service quality. We focus on using Linear SVM, Kernel SVM with linear kernel and Kernel SVM with RBF kernel on the dataset.
-
+'''
 {
  "cells": [
   {
@@ -108,7 +108,7 @@ SVMs via sub-gradient descent and quadratic programming with sentiment analysis 
    ]
   }
 }
-
+'''
 # Data Set
 
 - The [data](https://github.com/jyang-zhou/SVMs/tree/main/Data%20Set) comes in the form of a csv table. The columns most relevant to our task are 'text' and 'airline_sentiment'.
