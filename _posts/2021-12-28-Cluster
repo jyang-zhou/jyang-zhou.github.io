@@ -1,0 +1,47 @@
+---
+title: Clustering Method
+commentable: flase
+Edit: 2021-12-28
+mathjax: true
+mermaid: true
+tags: Clustering
+categories: Data
+description: Clustering methods are used to identify groups of similar objects in a multivariate data sets collected from fields. In this project, k-means cluster, hierarchical cluster, and spectral cluster are provided in the sample code.
+---
+
+# Clustering-Method
+Clustering methods are used to identify groups of similar objects in a multivariate data sets collected from fields. In this project, k-means cluster, hierarchical cluster, and spectral cluster are provided in the sample code.
+
+# Dataset
+
+![image](https://user-images.githubusercontent.com/95513386/146653351-a4be3334-4b56-4b1b-b76d-bdf26f6d49d0.png)
+
+
+We crawled articles in different areas of Wikipedia. The topics of these articles form a hierarchy (given by Wikipedia), as shown
+in Figure 1. We selected 10 documents in each of the finest topic categories (leaf nodes in the figure). We
+provide you the documents in a featurized form.
+
+Each document has undergone the following pre-proessing steps:
+1. Removal of links, formulas, tables, reference lists, and media other than text.
+2. Removal of certain words. These words include “stop words” that do not convey significant meaning,
+such as “a”, “the”, “me”, and digits (for purpose of controlling the vocabulary size).
+3. Stemming, where the affixes of each word are removed and only the remaining stem is retained. The
+vocabulary size (number of unique word types) in the dataset is 9,729 after pre-processing.
+
+# Visualization and Accuracy
+## Hierarchical Clustering
+NMI: 0.608, Purity: 0.500
+
+![image](https://user-images.githubusercontent.com/95513386/146653792-f55af265-f9af-4d23-9859-1e61ad694c28.png)
+
+![image](https://user-images.githubusercontent.com/95513386/146653979-34b1a3d9-ff9f-41cb-bdec-06fcb2f74cee.png)
+
+## K-means Cluster
+NMI: 0.514, Purity: 0.425
+
+![image](https://user-images.githubusercontent.com/95513386/146653996-2358262e-e104-4616-8fb3-9cc0e3fb382c.png)
+
+## Spectral Cluster
+NMI: 0.689, Purity: 0.581
+
+![image](https://user-images.githubusercontent.com/95513386/146654016-8efdd568-047d-4db5-a800-de2a7af098a8.png)
